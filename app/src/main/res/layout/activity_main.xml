@@ -49,12 +49,27 @@
         android:layout_height="50dp"
         android:layout_marginTop="4dp"
         android:backgroundTint="@color/black"
-        android:text="Gellery"
         android:onClick="gallery"
+        android:text="Gellery"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.353"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_Gallery"
-        app:layout_constraintVertical_bias="0.206" />
+        app:layout_constraintVertical_bias="0.189" />
+
+    <Button
+        android:id="@+id/button_DownloadImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/black"
+        android:text="Download"
+        android:onClick="download"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.721"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_Gallery"
+        app:layout_constraintVertical_bias="0.142" />
 </androidx.constraintlayout.widget.ConstraintLayout>
