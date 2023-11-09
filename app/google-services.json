@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "939364752838",
+    "project_id": "camtranslatorauth",
+    "storage_bucket": "camtranslatorauth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939364752838:android:698334311af99d79c826c7",
+        "android_client_info": {
+          "package_name": "com.example.camtranslator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlzt7dj5Bx5p8XcRmjdjiU83X8Ytsrx2M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
