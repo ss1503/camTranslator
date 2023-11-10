@@ -30,8 +30,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //init firebase auth
         mAuth = FirebaseAuth.getInstance();
 
+        //init components
         email = (EditText) findViewById(R.id.editText_email);
         password = (EditText) findViewById(R.id.editText_password);
 
@@ -51,7 +53,10 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * on click for loging in into your account
+     * @param view
+     */
     public void login(View view)
     {
         String emailValue = email.getText().toString();
@@ -75,6 +80,10 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * on click for registering in into your account
+     * @param view
+     */
     public void Register(View view)
     {
         String emailValue = email.getText().toString();

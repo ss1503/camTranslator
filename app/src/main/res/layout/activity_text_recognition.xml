@@ -7,14 +7,14 @@
     tools:context=".TextRecognitionActivity">
 
     <ImageView
-        android:id="@+id/imageView_Camera"
-        android:layout_width="411dp"
-        android:layout_height="491dp"
+        android:id="@+id/imageView_Gallery"
+        android:layout_width="324dp"
+        android:layout_height="493dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.006"
+        app:layout_constraintVertical_bias="0.071"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
@@ -26,36 +26,35 @@
         android:text="Camera"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.185"
+        app:layout_constraintHorizontal_bias="0.182"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_Camera"
-        app:layout_constraintVertical_bias="0.247" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView_Gallery"
+        app:layout_constraintVertical_bias="0.063" />
 
     <Button
         android:id="@+id/button_Recognize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/black"
-        android:text="Recognize"
         android:onClick="recognizeText"
+        android:text="Recognize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.777"
+        app:layout_constraintHorizontal_bias="0.817"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_Camera"
-        app:layout_constraintVertical_bias="0.247" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView_Gallery"
+        app:layout_constraintVertical_bias="0.063" />
 
     <TextView
         android:id="@+id/textView_Result"
-        android:layout_width="361dp"
-        android:layout_height="88dp"
+        android:layout_width="357dp"
+        android:layout_height="139dp"
         android:hint="Result"
-        android:textSize="25sp"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.421"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_Camera"
-        app:layout_constraintVertical_bias="0.886" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.972" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
