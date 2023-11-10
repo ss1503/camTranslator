@@ -29,15 +29,11 @@ public class MainActivity extends AppCompatActivity {
 
     public String imageName = "";
 
-
     //consts
     private final int GALLERY_REQ_CODE = 1000;
 
-
     //components vars
     private ImageView iv;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,5 +102,11 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Download failed", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void next(View view)
+    {
+        Intent sourceIntent = new Intent(MainActivity.this, TextRecognitionActivity.class);
+        startActivity(sourceIntent);
     }
 }
