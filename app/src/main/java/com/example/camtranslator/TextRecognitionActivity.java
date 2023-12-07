@@ -1,15 +1,21 @@
 package com.example.camtranslator;
 
+import static android.app.PendingIntent.getActivity;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
@@ -31,6 +37,9 @@ import com.google.mlkit.vision.text.TextRecognizer;
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class TextRecognitionActivity extends AppCompatActivity {
 
@@ -38,9 +47,11 @@ public class TextRecognitionActivity extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
     private static final int CAMERA_CAPTURE_REQUEST_CODE = 101;
 
+    String currentPath;
+
     //components vars
     private ImageView iv;
-    private Bitmap thumbnail;
+    private Bitmap bitmap;
     public TextView tvResult;
 
     //Text recognizer
@@ -87,9 +98,24 @@ public class TextRecognitionActivity extends AppCompatActivity {
      */
     public void camera(View view)
     {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(intent, CAMERA_CAPTURE_REQUEST_CODE);
+        try{
+            String filename = "tempfile";
+            File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+            File imgFile = File.createTempFile(filename,".jpg", storageDir);
+            currentPath = imgFile.getAbsolutePath();
+            Uri imageUri = FileProvider.getUriForFile(TextRecognitionActivity.this,"com.example.camtranslator.fileprovider",imgFile);
+
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivityForResult(intent, CAMERA_CAPTURE_REQUEST_CODE);
+            }
+
+        }
+        catch (IOException e)
+        {
+            Toast.makeText(TextRecognitionActivity.this,"Failed to create temporary file",Toast.LENGTH_LONG);
+            throw new RuntimeException(e);
         }
     }
 
@@ -111,11 +137,12 @@ public class TextRecognitionActivity extends AppCompatActivity {
 
         if (requestCode == CAMERA_CAPTURE_REQUEST_CODE && resultCode == RESULT_OK) {
 
-            thumbnail = (Bitmap) data.getExtras().get("data");
+            bitmap = BitmapFactory.decodeFile(currentPath);
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
             byte bytesOfImage[] = bytes.toByteArray();
-            iv.setImageBitmap(thumbnail);
+            iv.setImageBitmap(bitmap);
+            iv.setRotation(90);
 
             uploadPhotoToFirebase(bytesOfImage);
         }
@@ -142,7 +169,7 @@ public class TextRecognitionActivity extends AppCompatActivity {
     }
 
     /**
-     * This function regonizes the text from the image and dispaly it using google ML kit
+     * This function recognizes the text from the image and dispaly it using google ML kit
      * @param view
      */
     public void recognizeText(View view)
@@ -157,7 +184,7 @@ public class TextRecognitionActivity extends AppCompatActivity {
             try {
 
                 //converting bitmap to input image
-                InputImage inputImage = InputImage.fromBitmap(thumbnail, 0);
+                InputImage inputImage = InputImage.fromBitmap(bitmap, 90);
 
                 Task<Text> textTaskResult = textRecognizer.process(inputImage)
                         .addOnSuccessListener(new OnSuccessListener<Text>() {
